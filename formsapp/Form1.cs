@@ -14,7 +14,9 @@ using System.Windows.Forms;
 namespace formsapp
 {
     public partial class Form1 : Form
-    {
+    { 
+        public int Ogrenciid { get; set; }
+    
         public Form1()
         {
             InitializeComponent();
@@ -102,8 +104,26 @@ namespace formsapp
             }
         }
 
+        private void btnBul_Click(object sender, EventArgs e)
+        {
+            frmOgrBul frm = new frmOgrBul(this);
+            frm.Show();
+        }
 
+        private void btnSil_Click(object sender, EventArgs e)
+        {
+            var obl = new OgrenciBL();
+            MessageBox.Show(obl.OgrenciSil(Ogrenciid) ? "Silme Başarılı" : "Başarısız!");
+        }
+
+        private void btnGuncelle_Click(object sender, EventArgs e)
+        {
+            var obl = new OgrenciBL();
+            MessageBox.Show(obl.OgrenciGuncelle(new Ogrenci { Ad = txtad.Text.Trim(), Soyad = txtsoyad.Text.Trim(), Numara = txtnumara.Text.Trim(),
+                Ogrenciid = Ogrenciid })?"Güncelleme Başarılı!":"Güncelleme Başarısız");
+        }
     }
+    
 
     interface ITransfer
     {
